@@ -1,0 +1,51 @@
+* {
+    margin: 0;
+    padding:0;
+}
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.black{
+    height: 60px;
+    width: 60px;
+    display: inline;
+    background-image: url('./src/black.png');
+}
+.white{
+    height: 60px;
+    width: 60px;
+    display: inline;
+    background-image: url('./src/white.png');
+}
+.row {
+    display: flex;
+}
+.pos_chess{
+    
+}
+.label{
+    text-align: center;
+    font-size: 28px;
+}
+.label2{
+    text-align: center;
+    font-size: 28px;
+    display: inline;
+}
+.captions {
+    width: 480px;
+    display: flex;
+    justify-content: space-around;
+}
+main {
+    display: flex;
+}
+img {
+    z-index: 999;
+    position: relative;
+    width: 60px;
+    height: 60px;
+}
