@@ -163,47 +163,54 @@
     </main>
     <script>
         let rows = document.querySelectorAll('.row')
-
-
-       class Figure  {
-        constructor (x, y, isWhite, image ){
-            this.x =x
-            this.y =y
-            this.isWhite = isWhite
-            this.image = `./src/${ this.isWhite? 'white':'black' }_${image}.png` 
+        class Figure  {
+            constructor (x, y, isWhite, image ){
+                this.x =x
+                this.y =y
+                this.isWhite = isWhite
+                this.image = `./src/${ this.isWhite? 'white':'black' }_${image}.png` 
+            }
+            draw () {
+                let row = rows[7-this.y]
+                let div = row.querySelectorAll('div')[this.x]
+                let image = div.querySelector('img')
+                image.src = this.image
+            }
         }
-        draw () {
-            let row = rows[7-this.y]
-            let div = row.querySelectorAll('div')[this.x]
-            let image = div.querySelector('img')
-            image.src = this.image
-        }
-       }
 
-       class Pawn extends Figure {
+        class Pawn extends Figure {
             constructor (x, y, isWhite) {
                 super(x, y, isWhite, 'pawn')
             }
+        }
 
-       }
-
-       class Rook extends Figure {
+        class Rook extends Figure {
             constructor (x, y, isWhite) {
                 super(x, y, isWhite, 'rook')
             }
-
+        }
         
-       }
-       class Knight extends Figure {
-        constructor (x,y,isWhite){
-            super(x,y,isWhite, 'knight')
+        class King extends Figure {
+            constructor(x, y, isWhite) {
+                super(x, y, isWhite, 'king')
+            }
         }
-       }
-       class Bishop extends Figure {
-        constructor (x,y,isWhite){
-            super(x,y,isWhite, 'bishop')
+
+        class Queen extends Figure {
+            constructor(x, y, isWhite) {
+                super(x, y, isWhite, "queen")
+            }
         }
-       }
+        class Knight extends Figure {
+            constructor (x,y,isWhite){
+                super(x,y,isWhite, 'knight')
+            }
+        }
+        class Bishop extends Figure {
+            constructor (x,y,isWhite){
+                super(x,y,isWhite, 'bishop')
+            }
+        }
     </script>
     </body>
     
