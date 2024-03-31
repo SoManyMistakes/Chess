@@ -12,13 +12,13 @@ body {
     height: 60px;
     width: 60px;
     display: inline;
-    background-image: url('./src/black.png');
+    background-image: url('../src/black.png');
 }
 .white{
     height: 60px;
     width: 60px;
     display: inline;
-    background-image: url('./src/white.png');
+    background-image: url('../src/white.png');
 }
 .row {
     display: flex;

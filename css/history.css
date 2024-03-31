@@ -10,6 +10,7 @@ body {
     max-width: 18rem;
     background-color: #b693bc;
     border-radius: 5px;
+    margin-left: 50px;
 }
 
 .history-element {
