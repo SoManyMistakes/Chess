@@ -6,23 +6,29 @@
             margin: 0;
             padding:0;
         }
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
         .black{
             height: 60px;
             width: 60px;
             display: inline;
+            background-image: url('./src/black.png');
         }
         .white{
             height: 60px;
             width: 60px;
             display: inline;
+            background-image: url('./src/white.png');
         }
-        .board {
+        .row {
             display: flex;
         }
         .pos_chess{
-            position: absolute;
-            left: 100px;
-            top:100px
+            
         }
         .label{
             text-align: center;
@@ -38,99 +44,110 @@
             display: flex;
             justify-content: space-around;
         }
+        main {
+            display: flex;
+        }
+        img {
+            z-index: 999;
+            position: relative;
+            width: 60px;
+            height: 60px;
+        }
         
     </style>
+    <link rel="stylesheet" href="./src/history.css">
     </head>
 
     <body>
+        <main>
         <div class="pos_chess">
-        <div class="board">
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <span class="label">8</span>
+        <div class="row">
+            <div class="white"><img/></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <span class="label">8</span>
         </div>
-        <div class="board">
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <span class="label">7</span>
+        <div class="row">
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <span class="label">7</span>
         </div>
-        <div class="board">
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <span class="label">6</span>
+        <div class="row">
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <span class="label">6</span>
         </div>
-        <div class="board">
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <span class="label">5</span>
+        <div class="row">
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <span class="label">5</span>
         </div>
-        <div class="board">
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <span class="label">4</span>
+        <div class="row">
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <span class="label">4</span>
         </div>
-        <div class="board">
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <span class="label">3</span>
+        <div class="row">
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <span class="label">3</span>
         </div>
-        <div class="board">
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <span class="label">2</span>
+        <div class="row">
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <span class="label">2</span>
         </div>
-        <div class="board">
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <img class = 'black'src="./src/black.png"/>
-        <img class = 'white'src="./src/white.png"/>
-        <span class="label">1</span>
+        <div class="row">
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <div class="black"><img></div>
+            <div class="white"><img></div>
+            <span class="label">1</span>
         </div> 
         <div class="captions">
             <div class="label2">a</div>
@@ -142,6 +159,83 @@
             <div class="label2">g</div>
             <div class="label2">h</div>
         </div>
-    </div>       
+    </div>
+    <div class="history-container">
+        <h1 class="history-title">История ходов</h1>
+        <ol class="history-list">
+            <li class="history-element">
+                123 123
+            </li>
+            <li class="history-element">
+                123 123
+            </li>
+            <li class="history-element">
+                123 123
+            </li>
+            <li class="history-element">
+                123 123
+            </li>
+            <li class="history-element">
+                123 123
+            </li>
+            <li class="history-element">
+                123 123
+            </li>
+            <li class="history-element">
+                123 123
+            </li>
+            <li class="history-element">
+                123 123
+            </li>
+            <li class="history-element">
+                123 123
+            </li>
+            <li class="history-element">
+                123 123
+            </li>
+            <li class="history-element">
+                123 123
+            </li>
+            <li class="history-element">
+                123 123
+            </li>
+            <li class="history-element">
+                123 123
+            </li>
+            <li class="history-element">
+                123 123
+            </li>
+            <li class="history-element">
+                123 123
+            </li>
+            <li class="history-element">
+                123 123
+            </li>
+        </ol>
+    </div>
+    </main>
+    <script>
+        let rows = document.querySelectorAll('.row')
+
+
+       class Figure  {
+        constructor (x, y, isWhite, image ){
+            this.x =x
+            this.y =y
+            this.isWhite = isWhite
+            this.image = `./src/${ this.isWhite? 'white':'black' }_${image}.png` 
+        }
+        draw () {
+            let row = rows[7-this.y]
+            let div = row.querySelectorAll('div')[this.x]
+            let image = div.querySelector('img')
+            image.src = this.image
+        }
+       }
+
+        // let f1 = new Figure(2,1, false, 'bishop')
+        // f1.draw()
+    </script>
     </body>
+    
 </html>
