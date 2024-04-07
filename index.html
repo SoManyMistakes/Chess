@@ -212,6 +212,7 @@
             }
         }
         let figures = []
+        /* Pawns */
         for (let i=0; i<8;i++) {
             figures.push(new Pawn(i,1, true))
         }
@@ -219,7 +220,14 @@
         for (let i=0; i<8;i++) {
             figures.push(new Pawn(i,6, false))
         }
+        /* Kings */
+        figures.push(new King(4,0, true))
 
+        figures.push(new King(4,7, false))
+        /* Queens*/
+        figures.push(new Queen(3,0, true))
+
+        figures.push(new Queen(3, 7, false))
 
 
         for (let i=0; i<figures.length;i++) {
