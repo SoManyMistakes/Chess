@@ -210,9 +210,6 @@
             constructor (x,y,isWhite){
                 super(x,y,isWhite, 'bishop')
             }
-            move (x,y,x2,y2) {
-                if (math.abs(x - x2)==math.abs(y - y2))
-            }
         }
         let figures = []
         /* Pawns */
@@ -244,6 +241,11 @@
         
         figures.push(new Knight(1,7, false))
         figures.push(new Knight(6,7, false))
+        figures.push(new Bishop(2,0,true))
+        figures.push(new Bishop(5,0,true))
+
+        figures.push(new Bishop(2,7,false))
+        figures.push(new Bishop(5,7,false))
 
         for (let i=0; i<figures.length;i++) {
             figures[i].draw()
