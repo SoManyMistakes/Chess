@@ -163,10 +163,15 @@
     </main>
     <script>
         let rows = document.querySelectorAll('.row')
+        let board = []
+        for (let i =0;i<8;i++) {
+            board.push([null,null,null,null, null,null, null,null ])
+        }
         class Figure  {
             constructor (x, y, isWhite, image ){
                 this.x =x
                 this.y =y
+                board[x][y] = this
                 this.isWhite = isWhite
                 this.image = `./src/${ this.isWhite? 'white':'black' }_${image}.png` 
             }
@@ -175,6 +180,7 @@
                 let div = row.querySelectorAll('div')[this.x]
                 let image = div.querySelector('img')
                 image.src = this.image
+                image.style.opacity = 1
             }
         }
 
@@ -250,6 +256,53 @@
         for (let i=0; i<figures.length;i++) {
             figures[i].draw()
         }
+
+        let chooseFigure = null
+        let last_cell = null
+
+        for (let row = 0; row<rows.length; row++) {
+            let cells = rows[row].querySelectorAll('div')
+            for (let c = 0; c<cells.length; c++) {
+                cells[c].addEventListener('click', function () {
+                    if (board[c][7-row] != null) {
+                        chooseFigure = board[c][7-row]
+                        let row1 = rows[7-chooseFigure.y]
+                        let div = row1.querySelectorAll('div')[chooseFigure.x]
+                        let image = div.querySelector('img')
+                        image.style.backgroundColor = '#0000FF'
+                        last_cell = image
+                        
+                    } else {
+                        if (chooseFigure != null) {
+                            // DELETE FIGURE
+                            board[chooseFigure.x][chooseFigure.y] = null
+                            let row1 = rows[7-chooseFigure.y]
+                            let div = row1.querySelectorAll('div')[chooseFigure.x]
+                            let image = div.querySelector('img')
+                            image.src = ''
+
+                            // SET FIGURE TO NEW POSITION
+                            chooseFigure.x = c
+                            chooseFigure.y = 7-row
+                            chooseFigure.draw()
+                            board[c][7-row] = chooseFigure
+
+                            chooseFigure = null
+                            last_cell.style.opacity = 0
+                            last_cell.style.backgroundColor = ''
+
+                            
+
+                        }
+
+                    }
+                    // alert(`x = ${c} y = ${7-row} isFigure = ${board[c][7-row]}`)
+
+                })
+            }
+
+        }
+
     </script>
     </body>
     
