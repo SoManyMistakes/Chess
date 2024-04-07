@@ -24,7 +24,7 @@ body {
     display: flex;
 }
 .pos_chess{
-    
+    user-select: none;
 }
 .label{
     text-align: center;
