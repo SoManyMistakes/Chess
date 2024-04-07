@@ -211,6 +211,20 @@
                 super(x,y,isWhite, 'bishop')
             }
         }
+        let figures = []
+        for (let i=0; i<8;i++) {
+            figures.push(new Pawn(i,1, true))
+        }
+
+        for (let i=0; i<8;i++) {
+            figures.push(new Pawn(i,6, false))
+        }
+
+
+
+        for (let i=0; i<figures.length;i++) {
+            figures[i].draw()
+        }
     </script>
     </body>
     
