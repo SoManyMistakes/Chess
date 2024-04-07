@@ -210,8 +210,12 @@
             constructor (x,y,isWhite){
                 super(x,y,isWhite, 'bishop')
             }
+            move (x,y,x2,y2) {
+                if (math.abs(x - x2)==math.abs(y - y2))
+            }
         }
         let figures = []
+        /* Pawns */
         for (let i=0; i<8;i++) {
             figures.push(new Pawn(i,1, true))
         }
@@ -219,16 +223,25 @@
         for (let i=0; i<8;i++) {
             figures.push(new Pawn(i,6, false))
         }
+        /* Kings */
+        figures.push(new King(4,0, true))
 
+        figures.push(new King(4,7, false))
+        /* Queens */
+        figures.push(new Queen(3,0, true))
 
-        figures.push(new Knight(1,0, true))
-        figures.push(new Knight(6,0, true))
-        figures.push(new Knight(1,7, false))
-        figures.push(new Knight(6,7, false))
+        figures.push(new Queen(3, 7, false))
+
+        /* Rook */
+        figures.push(new Rook(0,0, true))
+        figures.push(new Rook(7,0, true))
+        
+        figures.push(new Rook(0,7, false))
+        figures.push(new Rook(7,7, false))
+
         for (let i=0; i<figures.length;i++) {
             figures[i].draw()
         }
-        
     </script>
     </body>
     
