@@ -112,7 +112,7 @@ class Bishop extends Figure {
         super(x,y,isWhite, 'bishop')
     }
     check_turn(x,y) {
-        if (this.x - x == 0 || this.y - y == 0 || Math.abs(this.x - x) == Math.abs(this.y - y)) {
+        if (Math.abs(this.x - x) == Math.abs(this.y - y)) {
             let delta_x = 0
             if (this.x > x) {
                 delta_x = -1
