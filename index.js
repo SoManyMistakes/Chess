@@ -102,10 +102,40 @@ class Knight extends Figure {
     constructor (x,y,isWhite){
         super(x,y,isWhite, 'knight')
     }
+    check_turn(x,y) {
+        if (Math.abs(this.x-x) === 2 && Math.abs(this.y-y) === 1 || Math.abs(this.x-x) === 1 && Math.abs(this.y-y) === 2)
+        return true
+    }
 }
 class Bishop extends Figure {
     constructor (x,y,isWhite){
         super(x,y,isWhite, 'bishop')
+    }
+    check_turn(x,y) {
+        if (this.x - x == 0 || this.y - y == 0 || Math.abs(this.x - x) == Math.abs(this.y - y)) {
+            let delta_x = 0
+            if (this.x > x) {
+                delta_x = -1
+            } else if (this.x < x) {
+                delta_x = 1
+            }
+            
+            let delta_y = 0
+            if (this.y > y) {
+                delta_y = -1
+            } else if (this.y < y) {
+                delta_y = 1
+            }
+
+            for (let i =1; i< Math.max(Math.abs(this.x-x),Math.abs(this.y-y));i++ ) {
+                if (board.board[this.x+delta_x*i][this.y+delta_y*i] != null) {
+                    return false
+                }
+            }
+            return true
+
+        }
+        return false
     }
 }
 let figures = []
@@ -175,10 +205,7 @@ for (let row = 0; row<rows.length; row++) {
                 } else {
                     last_cell.style.backgroundColor = '#ff0000'
                 }
-
             }
-            
-
         })
     }
 
