@@ -59,6 +59,32 @@ class Rook extends Figure {
     constructor (x, y, isWhite) {
         super(x, y, isWhite, 'rook')
     }
+    check_turn(x,y) {
+        if (this.x - x == 0 || this.y - y == 0) {
+            let delta_x = 0
+            if (this.x > x) {
+                delta_x = -1
+            } else if (this.x < x) {
+                delta_x = 1
+            }
+            
+            let delta_y = 0
+            if (this.y > y) {
+                delta_y = -1
+            } else if (this.y < y) {
+                delta_y = 1
+            }
+
+            for (let i =1; i< Math.max(Math.abs(this.x-x),Math.abs(this.y-y));i++ ) {
+                if (board.board[this.x+delta_x*i][this.y+delta_y*i] != null) {
+                    return false
+                }
+            }
+            return true
+
+        }
+        return false
+    }
 }
 
 class King extends Figure {
