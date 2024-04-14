@@ -102,6 +102,10 @@ class Knight extends Figure {
     constructor (x,y,isWhite){
         super(x,y,isWhite, 'knight')
     }
+    check_turn(x,y) {
+        if (Math.abs(this.x-x) === 2 && Math.abs(this.y-y) === 1 || Math.abs(this.x-x) === 1 && Math.abs(this.y-y) === 2)
+        return true
+    }
 }
 class Bishop extends Figure {
     constructor (x,y,isWhite){
@@ -175,10 +179,7 @@ for (let row = 0; row<rows.length; row++) {
                 } else {
                     last_cell.style.backgroundColor = '#ff0000'
                 }
-
             }
-            
-
         })
     }
 
