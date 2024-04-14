@@ -129,7 +129,9 @@ for (let row = 0; row<rows.length; row++) {
             if (board.board[c][7-row] != null) {
                 if (last_cell != null) {
                 last_cell.style.backgroundColor = ''}
+                
                 chooseFigure = board.board[c][7-row]
+                // cell under choosen figure becomes blue
                 let image = board.get_image(c, 7-row)
                 image.style.backgroundColor = '#0000FF'
                 
