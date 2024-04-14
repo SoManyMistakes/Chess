@@ -29,6 +29,7 @@ body {
 .label{
     text-align: center;
     font-size: 28px;
+    margin: auto 0 auto 5px;
 }
 .label2{
     text-align: center;

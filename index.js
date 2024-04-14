@@ -1,0 +1,153 @@
+class Board {
+    constructor () {
+        this.board = []
+        for (let i =0;i<8;i++) {
+            this.board.push([null,null,null,null, null,null, null,null ])
+        }
+    }
+    get_image (x,y) {
+        let row = rows[7-chooseFigure.y]
+        let div = row.querySelectorAll('div')[chooseFigure.x]
+        return div.querySelector('img')
+    }
+    remove_figure (figure) {
+        this.board[figure.x][figure.y] = null
+        let image = this.get_image(figure.x, figure.y)
+        image.style.opacity = 0
+    }
+    set_figure (figure,new_x,new_y) {
+        this.remove_figure(figure)
+        figure.x = new_x
+        figure.y = new_y
+        this.board[new_x][new_y] = figure
+        let image = this.get_image(figure.x, figure.y)
+        image.style.opacity = 1
+        figure.draw()
+    }
+
+}
+let board = new Board ()
+let rows = document.querySelectorAll('.row')
+
+class Figure  {
+    constructor (x, y, isWhite, image ){
+        this.x =x
+        this.y =y
+        board.board[x][y] = this
+        this.isWhite = isWhite
+        this.image = `./src/${ this.isWhite? 'white':'black' }_${image}.png` 
+    }
+    draw () {
+        let row = rows[7-this.y]
+        let div = row.querySelectorAll('div')[this.x]
+        let image = div.querySelector('img')
+        image.src = this.image
+        image.style.opacity = 1
+    }
+}
+
+class Pawn extends Figure {
+    constructor (x, y, isWhite) {
+        super(x, y, isWhite, 'pawn')
+    }
+}
+
+class Rook extends Figure {
+    constructor (x, y, isWhite) {
+        super(x, y, isWhite, 'rook')
+    }
+}
+
+class King extends Figure {
+    constructor(x, y, isWhite) {
+        super(x, y, isWhite, 'king')
+    }
+}
+
+class Queen extends Figure {
+    constructor(x, y, isWhite) {
+        super(x, y, isWhite, "queen")
+    }
+}
+class Knight extends Figure {
+    constructor (x,y,isWhite){
+        super(x,y,isWhite, 'knight')
+    }
+}
+class Bishop extends Figure {
+    constructor (x,y,isWhite){
+        super(x,y,isWhite, 'bishop')
+    }
+}
+let figures = []
+/* Pawns */
+for (let i=0; i<8;i++) {
+    figures.push(new Pawn(i,1, true))
+}
+
+for (let i=0; i<8;i++) {
+    figures.push(new Pawn(i,6, false))
+}
+/* Kings */
+figures.push(new King(4,0, true))
+
+figures.push(new King(4,7, false))
+/* Queens */
+figures.push(new Queen(3,0, true))
+
+figures.push(new Queen(3, 7, false))
+
+/* Rook */
+figures.push(new Rook(0,0, true))
+figures.push(new Rook(7,0, true))
+
+figures.push(new Rook(0,7, false))
+figures.push(new Rook(7,7, false))
+
+figures.push(new Knight(1,0, true))
+figures.push(new Knight(6,0, true))
+
+figures.push(new Knight(1,7, false))
+figures.push(new Knight(6,7, false))
+figures.push(new Bishop(2,0,true))
+figures.push(new Bishop(5,0,true))
+
+figures.push(new Bishop(2,7,false))
+figures.push(new Bishop(5,7,false))
+
+for (let i=0; i<figures.length;i++) {
+    figures[i].draw()
+}
+
+let chooseFigure = null
+let last_cell = null
+
+for (let row = 0; row<rows.length; row++) {
+    let cells = rows[row].querySelectorAll('div')
+    for (let c = 0; c<cells.length; c++) {
+        cells[c].addEventListener('click', function () {
+            if (board.board[c][7-row] != null) {
+                if (last_cell != null) {
+                last_cell.style.backgroundColor = ''}
+                chooseFigure = board.board[c][7-row]
+                let image = board.get_image(c, 7-row)
+                image.style.backgroundColor = '#0000FF'
+                
+                last_cell = image
+                
+            } else {
+                if (chooseFigure != null) {
+                    // MOVE FIGURE
+                    board.set_figure(chooseFigure,c, 7-row)
+                    chooseFigure = null
+                } else {
+                    last_cell.style.backgroundColor = '#ff0000'
+                }
+
+            }
+            
+
+        })
+    }
+
+}
