@@ -307,30 +307,58 @@ for (let i=0; i<figures.length;i++) {
 
 let chooseFigure = null
 let last_cell = null
+let isWhiteTurn = true
+
 
 for (let row = 0; row<rows.length; row++) {
     let cells = rows[row].querySelectorAll('div')
     for (let c = 0; c<cells.length; c++) {
         cells[c].addEventListener('click', function () {
             if (board.board[c][7-row] != null) {
-                if (last_cell != null) {
-                last_cell.style.backgroundColor = ''}
-                
-                chooseFigure = board.board[c][7-row]
-                // cell under choosen figure becomes blue
-                let image = board.get_image(c, 7-row)
-                image.style.backgroundColor = '#0000FF'
-                
-                last_cell = image
-                
+                if (chooseFigure != null) {
+                    if (board.board[c][7-row].isWhite == chooseFigure.isWhite) {
+                        chooseFigure = board.board[c][7-row]
+                        if (last_cell != null) { last_cell.style.backgroundColor = ''}
+                        // BLUE
+                        let image = board.get_image(c, 7-row)
+                        image.style.backgroundColor = '#0000FF' 
+                        last_cell = image
+                    } else {
+                        if (chooseFigure.check_turn(c, 7-row)) {
+                            board.remove_figure(chooseFigure)
+                            board.set_figure(chooseFigure,c, 7-row )
+                            isWhiteTurn = !isWhiteTurn
+                            chooseFigure = null
+                            if (last_cell != null) { 
+                                last_cell.style.backgroundColor = ''
+                                last_cell = null
+                        }
+                        }
+                    }
+                } else {
+                    if (isWhiteTurn == board.board[c][7-row].isWhite) {
+                        chooseFigure = board.board[c][7-row]
+                        if (last_cell != null) { last_cell.style.backgroundColor = ''}
+                        // BLUE
+                        let image = board.get_image(c, 7-row)
+                        image.style.backgroundColor = '#0000FF' 
+                        last_cell = image
+                    }
+                }
             } else {
                 if (chooseFigure != null) {
-                    // MOVE FIGURE
+                    
                     if (chooseFigure.check_turn(c, 7-row)) {
-                        board.set_figure(chooseFigure,c, 7-row)
-                        chooseFigure = null}
-                } else {
-                    last_cell.style.backgroundColor = '#ff0000'
+                            
+                            board.remove_figure(chooseFigure)
+                            board.set_figure(chooseFigure,c, 7-row )
+                            isWhiteTurn = !isWhiteTurn
+                            chooseFigure = null
+                            if (last_cell != null) { 
+                                last_cell.style.backgroundColor = ''
+                                last_cell = null
+                        }
+                    }
                 }
             }
         })
