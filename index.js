@@ -53,106 +53,64 @@ class Pawn extends Figure {
     constructor (x, y, isWhite) {
         super(x, y, isWhite, 'pawn')
     }
-    check_turn(x,y) {
-        if (this.x != x) {return false}
-        if (this.isWhite == true) {
-            if (this.y == 1 && y - this.y == 2) {
-                let delta_x = 0
-                if (this.x > x) {
-                    delta_x = -1
-                } else if (this.x < x) {
-                    delta_x = 1
-                }
-                
-                let delta_y = 0
-                if (this.y > y) {
-                    delta_y = -1
-                } else if (this.y < y) {
-                    delta_y = 1
-                }
-
-                for (let i =1; i< Math.max(Math.abs(this.x-x),Math.abs(this.y-y));i++ ) {
-                    if (board.board[this.x+delta_x*i][this.y+delta_y*i] != null) {
-                        return false
+    check_turn(x, y) {
+        if (this.isWhite) {
+        // WHITE
+            if (this.y == 1) {
+            // BEGIN
+                if (this.x == x) {
+                    if (y-this.y < 3) {
+                        if (y-this.y == 1) {
+                            if (board.board[x][y] == null) {return true}
+                        } 
+                        if (y-this.y == 2) {
+                            if (board.board[x][y] == null && board.board[x][y-1] == null) {return true}
+                        } 
                     }
-                }
-                return true
-            }
-        
-            if (y - this.y == 1) {
-                let delta_x = 0
-                if (this.x > x) {
-                    delta_x = -1
-                } else if (this.x < x) {
-                    delta_x = 1
-                }
-                
-                let delta_y = 0
-                if (this.y > y) {
-                    delta_y = -1
-                } else if (this.y < y) {
-                    delta_y = 1
-                }
+                } 
 
-                for (let i =1; i< Math.max(Math.abs(this.x-x),Math.abs(this.y-y));i++ ) {
-                    if (board.board[this.x+delta_x*i][this.y+delta_y*i] != null) {
-                        return false
+            } else {
+                    if (Math.abs(x-this.x)==1 && y-this.y==1) {
+                        if (board.board[x][y] != null) {
+                            if (board.board[x][y].isWhite != this.isWhite) {
+                                return true
+                            }
+                        }
                     }
-                }
-                return true
-
+                    if (this.x==x && y-this.y==1 && board.board[x][y] == null) {
+                        return true
+                    }
             }
-            return false
+        } else {
+        // BLACK
+        if (this.y == 6) {
+            // BEGIN
+                if (this.x == x) {
+                    if (y-this.y > -3) {
+                        if (y-this.y == -1) {
+                            if (board.board[x][y] == null) {return true}
+                        } 
+                        if (y-this.y == -2) {
+                            if (board.board[x][y] == null && board.board[x][y+1] == null) {return true}
+                        } 
+                    }
+                } 
+
+            } else {
+                    if (Math.abs(x-this.x)==1 && y-this.y==-1) {
+                        if (board.board[x][y] != null) {
+                            if (board.board[x][y].isWhite != this.isWhite) {
+                                return true
+                            }
+                        }
+                    }
+                    if (this.x==x && y-this.y==-1 && board.board[x][y] == null) {
+                        return true
+                    }
+            }
+
         }
-        if (this.isWhite == false) {
-            if (this.y == 6 && this.y - y == 2) {
-                let delta_x = 0
-                if (this.x > x) {
-                    delta_x = -1
-                } else if (this.x < x) {
-                    delta_x = 1
-                }
-                
-                let delta_y = 0
-                if (this.y > y) {
-                    delta_y = -1
-                } else if (this.y < y) {
-                    delta_y = 1
-                }
 
-                for (let i =1; i< Math.max(Math.abs(this.x-x),Math.abs(this.y-y));i++ ) {
-                    if (board.board[this.x+delta_x*i][this.y+delta_y*i] != null) {
-                        return false
-                    }
-                }
-                return true
-            }
-        
-            if (this.y - y == 1) {
-                let delta_x = 0
-                if (this.x > x) {
-                    delta_x = -1
-                } else if (this.x < x) {
-                    delta_x = 1
-                }
-                
-                let delta_y = 0
-                if (this.y > y) {
-                    delta_y = -1
-                } else if (this.y < y) {
-                    delta_y = 1
-                }
-
-                for (let i =1; i< Math.max(Math.abs(this.x-x),Math.abs(this.y-y));i++ ) {
-                    if (board.board[this.x+delta_x*i][this.y+delta_y*i] != null) {
-                        return false
-                    }
-                }
-                return true
-
-            }
-            return false
-        }
     }
 }
 
