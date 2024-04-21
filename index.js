@@ -24,7 +24,19 @@ class Board {
         image.style.opacity = 1
         figure.draw()
     }
-
+    filter_figures_by_color (color) {
+        let result = []
+        for (let i=0; i<8;i++) {
+            for (let j=0; j<8;j++) {
+                if (this.board[i][j] != null) {
+                    if (this.board[i][j].isWhite == color) {
+                        result.push(this.board[i][j])
+                    }
+                }
+            }
+        }
+        return result
+    }
 }
 let board = new Board ()
 let rows = document.querySelectorAll('.row')
