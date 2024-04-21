@@ -56,6 +56,13 @@ class Pawn extends Figure {
     check_turn(x, y) {
         if (this.isWhite) {
         // WHITE
+            if (Math.abs(x-this.x)==1 && y-this.y==1) {
+                        if (board.board[x][y] != null) {
+                            if (board.board[x][y].isWhite != this.isWhite) {
+                                return true
+                            }
+                        }
+                    }
             if (this.y == 1) {
             // BEGIN
                 if (this.x == x) {
@@ -70,19 +77,20 @@ class Pawn extends Figure {
                 } 
 
             } else {
-                    if (Math.abs(x-this.x)==1 && y-this.y==1) {
-                        if (board.board[x][y] != null) {
-                            if (board.board[x][y].isWhite != this.isWhite) {
-                                return true
-                            }
-                        }
-                    }
+                    
                     if (this.x==x && y-this.y==1 && board.board[x][y] == null) {
                         return true
                     }
             }
         } else {
         // BLACK
+        if (Math.abs(x-this.x)==1 && y-this.y==-1) {
+            if (board.board[x][y] != null) {
+                if (board.board[x][y].isWhite != this.isWhite) {
+                    return true
+                }
+            }
+        }
         if (this.y == 6) {
             // BEGIN
                 if (this.x == x) {
@@ -97,13 +105,7 @@ class Pawn extends Figure {
                 } 
 
             } else {
-                    if (Math.abs(x-this.x)==1 && y-this.y==-1) {
-                        if (board.board[x][y] != null) {
-                            if (board.board[x][y].isWhite != this.isWhite) {
-                                return true
-                            }
-                        }
-                    }
+                    
                     if (this.x==x && y-this.y==-1 && board.board[x][y] == null) {
                         return true
                     }
