@@ -185,6 +185,15 @@ class King extends Figure {
                     return false
                 }
             }
+            // 
+            let enemy_figures = board.filter_figures_by_color(!this.isWhite)
+            for (let i=0; i<enemy_figures.length; i++) {
+                if (enemy_figures[i].check_turn(x, y) == true) {
+                    return false
+                }
+            }
+
+
             return true
         }
         return false
@@ -236,6 +245,28 @@ class Bishop extends Figure {
         super(x,y,isWhite, 'bishop')
     }
     check_turn(x,y) {
+        board.board[x][y] = this
+        board.board[this.x][this.y] = null
+        let enemy_figures = board.filter_figures_by_color(!this.isWhite)
+        let my_figures = board.filter_figures_by_color(this.isWhite)
+        for (let i=0;i<my_figures.length; i++) {
+            if (my_figures[i].image.includes('king') && my_figures[i].isWhite == this.isWhite){
+                let my_king = my_figures[i]
+                break    
+            }
+        }
+
+        for (let i=0;i<enemy_figures.length; i++) {
+            if (enemy_figures[i].check_turn(my_king.x, my_king.y) == true) {
+                board.board[x][y] = null
+                board.board[this.x][this.y] = this
+                
+                return false    
+            }
+        }
+        board.board[x][y] = null
+        board.board[this.x][this.y] = this
+
         if (Math.abs(this.x - x) == Math.abs(this.y - y)) {
             let delta_x = 0
             if (this.x > x) {
