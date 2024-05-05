@@ -183,30 +183,42 @@ class King extends Figure {
         super(x, y, isWhite, 'king')
     }
     check_turn(x,y,isRecursion=true) {
-        if (Math.abs(this.x - x)==1 || Math.abs(this.y - y)==1 || (Math.abs(this.x - x) == Math.abs(this.y - y) && Math.abs(this.x - x)==1 && Math.abs(this.y - y)==1)) {
-            let delta_x = 0
-            if (this.x != x) { delta_x = (x-this.x) / Math.abs(x-this.x) }
-            
-            let delta_y = 0
-            if (this.y != y) { delta_y = (y-this.y) / Math.abs(y-this.y) }
-
-            for (let i =1; i< Math.max(Math.abs(this.x-x),Math.abs(this.y-y));i++ ) {
-                if (board.board[this.x+delta_x*i][this.y+delta_y*i] != null) {
+        if (Math.abs(this.x-x) in [1,0] && Math.abs(this.y-y) in [0,1] ) {
+            // figure
+            if (board.board[x][y] != null) {
+                // my color figure
+                if (board.board[x][y].isWhite == this.isWhite) {
                     return false
-                }
-            }
-            // 
-            let enemy_figures = board.filter_figures_by_color(!this.isWhite)
-            for (let i=0; i<enemy_figures.length; i++) {
-                if (enemy_figures[i].check_turn(x, y) == true) {
-                    return false
-                }
-            }
+                } else {
+                    // pre-turn
+                    let remove_figure = board.board[x][y]
+                    board.board[x][y] = null
+
+                    let enemies = board.filter_figures_by_color(!this.isWhite)
 
 
-            return true
+                    for (let i=0; i<enemies.length;i++) {
+                        if (enemies[i].check_turn(x, y, false)==true) {
+                            board.board[x][y] = remove_figure
+                            return false
+                        }
+                    }
+                    board.board[x][y] = remove_figure
+                    return true
+                }
+
+            } else {
+                // null cell
+                let enemies = board.filter_figures_by_color(!this.isWhite)
+
+                for (let i=0; i<enemies.length;i++) {
+                    if (enemies[i].check_turn(x, y, false)==true) {
+                        return false
+                    }
+                }
+                return true
+            }
         }
-        return false
     }
 }
 
