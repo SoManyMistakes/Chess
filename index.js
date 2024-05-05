@@ -65,7 +65,7 @@ class Pawn extends Figure {
     constructor (x, y, isWhite) {
         super(x, y, isWhite, 'pawn')
     }
-    check_turn(x, y) {
+    check_turn(x, y, isRecursion=true) {
         if (this.isWhite) {
         // WHITE
             if (Math.abs(x-this.x)==1 && y-this.y==1) {
@@ -132,7 +132,7 @@ class Rook extends Figure {
     constructor (x, y, isWhite) {
         super(x, y, isWhite, 'rook')
     }
-    check_turn(x,y) {
+    check_turn(x,y,isRecursion=true) {
         if (this.x - x == 0 || this.y - y == 0) {
             let delta_x = 0
             if (this.x > x) {
@@ -164,7 +164,7 @@ class King extends Figure {
     constructor(x, y, isWhite) {
         super(x, y, isWhite, 'king')
     }
-    check_turn(x,y) {
+    check_turn(x,y,isRecursion=true) {
         if (Math.abs(this.x - x)==1 || Math.abs(this.y - y)==1 || (Math.abs(this.x - x) == Math.abs(this.y - y) && Math.abs(this.x - x)==1 && Math.abs(this.y - y)==1)) {
             let delta_x = 0
             if (this.x > x) {
@@ -204,7 +204,7 @@ class Queen extends Figure {
     constructor(x, y, isWhite) {
         super(x, y, isWhite, "queen")
     }
-    check_turn(x,y) {
+    check_turn(x,y, isRecursion=true) {
         if (this.x - x == 0 || this.y - y == 0 || Math.abs(this.x - x) == Math.abs(this.y - y)) {
             let delta_x = 0
             if (this.x > x) {
@@ -235,7 +235,7 @@ class Knight extends Figure {
     constructor (x,y,isWhite){
         super(x,y,isWhite, 'knight')
     }
-    check_turn(x,y) {
+    check_turn(x,y, isRecursion=true) {
         if (Math.abs(this.x-x) === 2 && Math.abs(this.y-y) === 1 || Math.abs(this.x-x) === 1 && Math.abs(this.y-y) === 2)
         return true
     }
@@ -244,29 +244,26 @@ class Bishop extends Figure {
     constructor (x,y,isWhite){
         super(x,y,isWhite, 'bishop')
     }
-    check_turn(x,y) {
-        board.board[x][y] = this
-        board.board[this.x][this.y] = null
-        let enemy_figures = board.filter_figures_by_color(!this.isWhite)
-        let my_figures = board.filter_figures_by_color(this.isWhite)
-        for (let i=0;i<my_figures.length; i++) {
-            if (my_figures[i].image.includes('king') && my_figures[i].isWhite == this.isWhite){
-                let my_king = my_figures[i]
-                break    
-            }
-        }
+    check_turn(x,y, isRecursion=true) {
+        let enemies = board.filter_figures_by_color(!this.isWhite)
+        let my_king = this.isWhite ?  white_king : black_king
+        
+        if (isRecursion) {
+            // pre-turn
+            board.board[x][y] = this
+            board.board[this.x][this.y] = null
 
-        for (let i=0;i<enemy_figures.length; i++) {
-            if (enemy_figures[i].check_turn(my_king.x, my_king.y) == true) {
-                board.board[x][y] = null
-                board.board[this.x][this.y] = this
-                
-                return false    
+            for (let i=0; i<enemies.length;i++) {
+                if (enemies[i].check_turn(my_king.x, my_king.y, false)) {
+                    board.board[x][y] = null
+                    board.board[this.x][this.y] = this
+                    return false
+                }
             }
-        }
-        board.board[x][y] = null
-        board.board[this.x][this.y] = this
 
+            board.board[x][y] = null
+            board.board[this.x][this.y] = this
+        }
         if (Math.abs(this.x - x) == Math.abs(this.y - y)) {
             let delta_x = 0
             if (this.x > x) {
@@ -304,8 +301,10 @@ for (let i=0; i<8;i++) {
 }
 /* Kings */
 figures.push(new King(4,0, true))
-
+let white_king = figures[figures.length-1]
 figures.push(new King(4,7, false))
+let black_king = figures[figures.length-1]
+
 /* Queens */
 figures.push(new Queen(3,0, true))
 
