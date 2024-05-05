@@ -193,18 +193,21 @@ class King extends Figure {
                 } else {
                     // pre-turn
                     let remove_figure = board.board[x][y]
-                    board.board[x][y] = null
-
+                    board.board[x][y] = this
+                    board.board[this.x][this.y] = null
+                    
                     let enemies = board.filter_figures_by_color(!this.isWhite)
 
 
                     for (let i=0; i<enemies.length;i++) {
                         if (enemies[i].check_turn(x, y, false)==true) {
                             board.board[x][y] = remove_figure
+                            board.board[this.x][this.y] = this
                             return false
                         }
                     }
                     board.board[x][y] = remove_figure
+                    board.board[this.x][this.y] = this
                     return true
                 }
 
