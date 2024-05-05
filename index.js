@@ -49,9 +49,6 @@ class Figure  {
         this.isWhite = isWhite
         this.image = `./src/${ this.isWhite? 'white':'black' }_${image}.png` 
     }
-    check_turn (x, y) {
-        return true
-    }
     draw () {
         let row = rows[7-this.y]
         let div = row.querySelectorAll('div')[this.x]
@@ -220,11 +217,12 @@ class Bishop extends Figure {
         super(x,y,isWhite, 'bishop')
     }
     check_turn(x,y, isRecursion=true) {
+        // pre-turn (for checking defending own king)
         let enemies = board.filter_figures_by_color(!this.isWhite)
         let my_king = this.isWhite ?  white_king : black_king
         
         if (isRecursion) {
-            // pre-turn
+            
             board.board[x][y] = this
             board.board[this.x][this.y] = null
 
@@ -239,6 +237,7 @@ class Bishop extends Figure {
             board.board[x][y] = null
             board.board[this.x][this.y] = this
         }
+        // Check turn available
         if (Math.abs(this.x - x) == Math.abs(this.y - y)) {
             let delta_x = 0
             if (this.x != x) { delta_x = (x-this.x) / Math.abs(x-this.x) }
