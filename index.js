@@ -135,20 +135,12 @@ class Rook extends Figure {
     check_turn(x,y,isRecursion=true) {
         if (this.x - x == 0 || this.y - y == 0) {
             let delta_x = 0
-            if (this.x > x) {
-                delta_x = -1
-            } else if (this.x < x) {
-                delta_x = 1
-            }
+            if (this.x != x) { delta_x = (x-this.x) / Math.abs(x-this.x) }
             
             let delta_y = 0
-            if (this.y > y) {
-                delta_y = -1
-            } else if (this.y < y) {
-                delta_y = 1
-            }
+            if (this.y != y) { delta_y = (y-this.y) / Math.abs(y-this.y) }
 
-            for (let i =1; i< Math.max(Math.abs(this.x-x),Math.abs(this.y-y));i++ ) {
+            for (let i =1; i< Math.max(Math.abs(this.x-x), Math.abs(this.y-y));i++ ) {
                 if (board.board[this.x+delta_x*i][this.y+delta_y*i] != null) {
                     return false
                 }
@@ -167,18 +159,10 @@ class King extends Figure {
     check_turn(x,y,isRecursion=true) {
         if (Math.abs(this.x - x)==1 || Math.abs(this.y - y)==1 || (Math.abs(this.x - x) == Math.abs(this.y - y) && Math.abs(this.x - x)==1 && Math.abs(this.y - y)==1)) {
             let delta_x = 0
-            if (this.x > x) {
-                delta_x = -1
-            } else if (this.x < x) {
-                delta_x = 1
-            }
+            if (this.x != x) { delta_x = (x-this.x) / Math.abs(x-this.x) }
             
             let delta_y = 0
-            if (this.y > y) {
-                delta_y = -1
-            } else if (this.y < y) {
-                delta_y = 1
-            }
+            if (this.y != y) { delta_y = (y-this.y) / Math.abs(y-this.y) }
 
             for (let i =1; i< Math.max(Math.abs(this.x-x),Math.abs(this.y-y));i++ ) {
                 if (board.board[this.x+delta_x*i][this.y+delta_y*i] != null) {
@@ -207,18 +191,10 @@ class Queen extends Figure {
     check_turn(x,y, isRecursion=true) {
         if (this.x - x == 0 || this.y - y == 0 || Math.abs(this.x - x) == Math.abs(this.y - y)) {
             let delta_x = 0
-            if (this.x > x) {
-                delta_x = -1
-            } else if (this.x < x) {
-                delta_x = 1
-            }
+            if (this.x != x) { delta_x = (x-this.x) / Math.abs(x-this.x) }
             
             let delta_y = 0
-            if (this.y > y) {
-                delta_y = -1
-            } else if (this.y < y) {
-                delta_y = 1
-            }
+            if (this.y != y) { delta_y = (y-this.y) / Math.abs(y-this.y) }
 
             for (let i =1; i< Math.max(Math.abs(this.x-x),Math.abs(this.y-y));i++ ) {
                 if (board.board[this.x+delta_x*i][this.y+delta_y*i] != null) {
@@ -236,8 +212,7 @@ class Knight extends Figure {
         super(x,y,isWhite, 'knight')
     }
     check_turn(x,y, isRecursion=true) {
-        if (Math.abs(this.x-x) === 2 && Math.abs(this.y-y) === 1 || Math.abs(this.x-x) === 1 && Math.abs(this.y-y) === 2)
-        return true
+        return Math.abs(this.x-x) === 2 && Math.abs(this.y-y) === 1 || Math.abs(this.x-x) === 1 && Math.abs(this.y-y) === 2
     }
 }
 class Bishop extends Figure {
@@ -266,18 +241,10 @@ class Bishop extends Figure {
         }
         if (Math.abs(this.x - x) == Math.abs(this.y - y)) {
             let delta_x = 0
-            if (this.x > x) {
-                delta_x = -1
-            } else if (this.x < x) {
-                delta_x = 1
-            }
+            if (this.x != x) { delta_x = (x-this.x) / Math.abs(x-this.x) }
             
             let delta_y = 0
-            if (this.y > y) {
-                delta_y = -1
-            } else if (this.y < y) {
-                delta_y = 1
-            }
+            if (this.y != y) { delta_y = (y-this.y) / Math.abs(y-this.y) }
 
             for (let i =1; i< Math.max(Math.abs(this.x-x),Math.abs(this.y-y));i++ ) {
                 if (board.board[this.x+delta_x*i][this.y+delta_y*i] != null) {
