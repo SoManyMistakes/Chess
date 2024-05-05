@@ -40,6 +40,7 @@ class Board {
 }
 let board = new Board ()
 let rows = document.querySelectorAll('.row')
+let turn_container = document.querySelector(".turn-container")
 
 class Figure  {
     constructor (x, y, isWhite, image ){
@@ -364,7 +365,14 @@ for (let row = 0; row<rows.length; row++) {
                             if (last_cell != null) { 
                                 last_cell.style.backgroundColor = ''
                                 last_cell = null
-                        }
+                            }
+                            if (isWhiteTurn) {
+                                turn_container.style.color = "#e8e7e6"
+                                turn_container.innerHTML = "Ход белых"
+                            } else {
+                                turn_container.style.color = "#737272"
+                                turn_container.innerHTML = "Ход чёрных"
+                            }
                         }
                     }
                 } else {
@@ -389,7 +397,15 @@ for (let row = 0; row<rows.length; row++) {
                             if (last_cell != null) { 
                                 last_cell.style.backgroundColor = ''
                                 last_cell = null
-                        }
+                            }
+                            if (isWhiteTurn) {
+                                turn_container.style.color = "#e8e7e6"
+                                turn_container.innerHTML = "Ход белых"
+                            } else {
+                                turn_container.style.color = "#737272"
+                                turn_container.innerHTML = "Ход чёрных"
+                            }
+                        
                     }
                 }
             }

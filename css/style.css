@@ -43,10 +43,31 @@ body {
 }
 main {
     display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
 }
 img {
     z-index: 999;
     position: relative;
     width: 60px;
     height: 60px;
+}
+
+.turn-container {
+    justify-content: center;
+    background-color: #b693bc;
+    height: 1rem;
+    margin: auto;
+    width: 80%;
+    border-radius: 1rem;
+    padding: 1rem;
+    color: #e8e7e6;
+    text-align: center;
+    align-items: center;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: row;
 }
