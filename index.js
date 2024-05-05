@@ -54,13 +54,13 @@ class Figure  {
         let enemies = board.filter_figures_by_color(!this.isWhite)
         let my_king = this.isWhite ?  white_king : black_king
         
-        if (isRecursion) {
+        if (isRecursion && board.board[x][y] == null) {
             
             board.board[x][y] = this
             board.board[this.x][this.y] = null
 
             for (let i=0; i<enemies.length;i++) {
-                if (enemies[i].check_turn(my_king.x, my_king.y, false)) {
+                if (enemies[i].check_turn(my_king.x, my_king.y, false)==true) {
                     board.board[x][y] = null
                     board.board[this.x][this.y] = this
                     return false
