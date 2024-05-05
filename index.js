@@ -96,6 +96,7 @@ class Pawn extends Figure {
                             if (board.board[x][y].isWhite != this.isWhite) {
                                 return true
                             }
+                            return false
                         }
                     }
             if (this.y == 1) {
@@ -210,12 +211,17 @@ class King extends Figure {
             } else {
                 // null cell
                 let enemies = board.filter_figures_by_color(!this.isWhite)
-
+                board.board[x][y] = this
+                board.board[this.x][this.y] = null
                 for (let i=0; i<enemies.length;i++) {
                     if (enemies[i].check_turn(x, y, false)==true) {
+                        board.board[x][y] = null
+                        board.board[this.x][this.y] = this
                         return false
                     }
                 }
+                board.board[x][y] = null
+                board.board[this.x][this.y] = this
                 return true
             }
         }
