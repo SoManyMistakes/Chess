@@ -5,9 +5,9 @@ class Board {
             this.board.push([null,null,null,null, null,null, null,null ])
         }
     }
-    get_image (x,y) {
-        let row = rows[7-chooseFigure.y]
-        let div = row.querySelectorAll('div')[chooseFigure.x]
+    get_image (x, y) {
+        let row = rows[7-y]
+        let div = row.querySelectorAll('div')[x]
         return div.querySelector('img')
     }
     remove_figure (figure) {
@@ -96,6 +96,8 @@ class Pawn extends Figure {
             if (Math.abs(x-this.x)==1 && y-this.y==1) {
                 let last_turn = history[history.length-1]
                 if (last_turn.figure.image.includes('pawn') && Math.abs(last_turn.start_pos[1] -last_turn.end_pos[1]) == 2 && last_turn.figure.x == x ) {
+                    last_turn.figure.x = last_turn.end_pos[0]
+                    last_turn.figure.y = last_turn.end_pos[1]
                     board.remove_figure(last_turn.figure)
                     return true
                 }
@@ -129,6 +131,13 @@ class Pawn extends Figure {
         } else {
         // BLACK
         if (Math.abs(x-this.x)==1 && y-this.y==-1) {
+            let last_turn = history[history.length-1]
+                if (last_turn.figure.image.includes('pawn') && Math.abs(last_turn.start_pos[1] -last_turn.end_pos[1]) == 2 && last_turn.figure.x == x ) {
+                    last_turn.figure.x = last_turn.end_pos[0]
+                    last_turn.figure.y = last_turn.end_pos[1]
+                    board.remove_figure(last_turn.figure)
+                    return true
+                }
             if (board.board[x][y] != null) {
                 if (board.board[x][y].isWhite != this.isWhite) {
                     return true
