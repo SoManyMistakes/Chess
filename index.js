@@ -408,7 +408,8 @@ for (let row = 0; row<rows.length; row++) {
                         image.style.backgroundColor = '#0000FF' 
                         last_cell = image
                     } else {
-                        turn (c, row)
+                        if (chooseFigure.check_turn(c, 7-row)) {
+                        turn (c, row)}
                     }
                 } else {
                     if (isWhiteTurn == board.board[c][7-row].isWhite) {
