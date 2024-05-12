@@ -338,6 +338,15 @@ for (let i=0; i<figures.length;i++) {
     figures[i].draw()
 }
 
+// let turn =  {figure:null, start_pos: [x, y], end_pos:[end_x, end_y] }
+// let history = []
+// history.push(turn)
+
+// let header = document.createElement("h1");  
+// header.innerHTML = 'Новый ход'
+// const history_list = document.querySelector('.history-list')
+// history_list.appendChild(header)
+
 let chooseFigure = null
 let last_cell = null
 let isWhiteTurn = true
