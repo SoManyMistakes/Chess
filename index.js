@@ -380,10 +380,10 @@ function turn (c, row) {
             last_cell = null
         }
         if (isWhiteTurn) {
-            turn_container.style.color = "#e8e7e6"
+            turn_container.style.color = "white"
             turn_container.innerHTML = "Ход белых"
         } else {
-            turn_container.style.color = "#737272"
+            turn_container.style.color = "black"
             turn_container.innerHTML = "Ход чёрных"
         }
         let new_history_element = document.createElement("li")
@@ -405,7 +405,7 @@ for (let row = 0; row<rows.length; row++) {
                         if (last_cell != null) { last_cell.style.backgroundColor = ''}
                         // BLUE
                         let image = board.get_image(c, 7-row)
-                        image.style.backgroundColor = '#0000FF' 
+                        image.style.backgroundColor = '#00CF0050' 
                         last_cell = image
                     } else {
                         if (chooseFigure.check_turn(c, 7-row)) {
@@ -417,7 +417,7 @@ for (let row = 0; row<rows.length; row++) {
                         if (last_cell != null) { last_cell.style.backgroundColor = ''}
                         // BLUE
                         let image = board.get_image(c, 7-row)
-                        image.style.backgroundColor = '#0000FF' 
+                        image.style.backgroundColor = '#00CF0050' 
                         last_cell = image
                     }
                 }
