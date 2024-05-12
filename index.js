@@ -352,6 +352,24 @@ let last_cell = null
 let isWhiteTurn = true
 
 
+function turn (c, row) {
+    board.remove_figure(chooseFigure)
+        board.set_figure(chooseFigure, c, 7-row )
+        isWhiteTurn = !isWhiteTurn
+        chooseFigure = null
+        if (last_cell != null) { 
+            last_cell.style.backgroundColor = ''
+            last_cell = null
+        }
+        if (isWhiteTurn) {
+            turn_container.style.color = "#e8e7e6"
+            turn_container.innerHTML = "Ход белых"
+        } else {
+            turn_container.style.color = "#737272"
+            turn_container.innerHTML = "Ход чёрных"
+        }
+}
+
 for (let row = 0; row<rows.length; row++) {
     let cells = rows[row].querySelectorAll('div')
     for (let c = 0; c<cells.length; c++) {
@@ -366,23 +384,7 @@ for (let row = 0; row<rows.length; row++) {
                         image.style.backgroundColor = '#0000FF' 
                         last_cell = image
                     } else {
-                        if (chooseFigure.check_turn(c, 7-row)) {
-                            board.remove_figure(chooseFigure)
-                            board.set_figure(chooseFigure,c, 7-row )
-                            isWhiteTurn = !isWhiteTurn
-                            chooseFigure = null
-                            if (last_cell != null) { 
-                                last_cell.style.backgroundColor = ''
-                                last_cell = null
-                            }
-                            if (isWhiteTurn) {
-                                turn_container.style.color = "#e8e7e6"
-                                turn_container.innerHTML = "Ход белых"
-                            } else {
-                                turn_container.style.color = "#737272"
-                                turn_container.innerHTML = "Ход чёрных"
-                            }
-                        }
+                        turn (c, row)
                     }
                 } else {
                     if (isWhiteTurn == board.board[c][7-row].isWhite) {
@@ -398,22 +400,8 @@ for (let row = 0; row<rows.length; row++) {
                 if (chooseFigure != null) {
                     
                     if (chooseFigure.check_turn(c, 7-row)) {
+                            turn(c, row)
                             
-                            board.remove_figure(chooseFigure)
-                            board.set_figure(chooseFigure,c, 7-row )
-                            isWhiteTurn = !isWhiteTurn
-                            chooseFigure = null
-                            if (last_cell != null) { 
-                                last_cell.style.backgroundColor = ''
-                                last_cell = null
-                            }
-                            if (isWhiteTurn) {
-                                turn_container.style.color = "#e8e7e6"
-                                turn_container.innerHTML = "Ход белых"
-                            } else {
-                                turn_container.style.color = "#737272"
-                                turn_container.innerHTML = "Ход чёрных"
-                            }
                         
                     }
                 }
