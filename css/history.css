@@ -13,14 +13,14 @@ body {
     margin-left: 50px;
 }
 
-.history-element {
+.history-list li {
     list-style-position: inside;
     color: white;
     font-size: 1rem;
     margin: 0.15rem;
 }
 
-.history-element::marker {
+.history-list li::marker {
     font-size: 0.85rem;
 }
 

@@ -85,6 +85,7 @@ class Figure  {
 class Pawn extends Figure {
     constructor (x, y, isWhite) {
         super(x, y, isWhite, 'pawn')
+        this.label = 'п'
     }
     check_turn(x, y, isRecursion=true) {
         if (this.check_pre_turn(x,y,isRecursion) == false) {
@@ -93,6 +94,12 @@ class Pawn extends Figure {
         if (this.isWhite) {
         // WHITE
             if (Math.abs(x-this.x)==1 && y-this.y==1) {
+                let last_turn = history[history.length-1]
+                if (last_turn.figure.image.includes('pawn') && Math.abs(last_turn.start_pos[1] -last_turn.end_pos[1]) == 2 && last_turn.figure.x == x ) {
+                    board.remove_figure(last_turn.figure)
+                    return true
+                }
+
                         if (board.board[x][y] != null) {
                             if (board.board[x][y].isWhite != this.isWhite) {
                                 return true
@@ -156,6 +163,7 @@ class Pawn extends Figure {
 class Rook extends Figure {
     constructor (x, y, isWhite) {
         super(x, y, isWhite, 'rook')
+        this.label = 'Л'
     }
     check_turn(x,y,isRecursion=true) {
         if (this.check_pre_turn(x,y,isRecursion) == false) {
@@ -183,6 +191,7 @@ class Rook extends Figure {
 class King extends Figure {
     constructor(x, y, isWhite) {
         super(x, y, isWhite, 'king')
+        this.label = 'Кр'
     }
     check_turn(x,y,isRecursion=true) {
         if (Math.abs(this.x-x) in [1,0] && Math.abs(this.y-y) in [0,1] ) {
@@ -235,6 +244,7 @@ class King extends Figure {
 class Queen extends Figure {
     constructor(x, y, isWhite) {
         super(x, y, isWhite, "queen")
+        this.label = 'Ф'
     }
     check_turn(x,y, isRecursion=true) {
         if (this.check_pre_turn(x,y,isRecursion) == false) {
@@ -261,6 +271,7 @@ class Queen extends Figure {
 class Knight extends Figure {
     constructor (x,y,isWhite){
         super(x,y,isWhite, 'knight')
+        this.label = 'К'
     }
     check_turn(x,y, isRecursion=true) {
         if (this.check_pre_turn(x,y,isRecursion) == false) {
@@ -272,6 +283,7 @@ class Knight extends Figure {
 class Bishop extends Figure {
     constructor (x,y,isWhite){
         super(x,y,isWhite, 'bishop')
+        this.label = 'С'
     }
     check_turn(x,y, isRecursion=true) {
         if (this.check_pre_turn(x,y,isRecursion) == false) {
@@ -338,14 +350,20 @@ for (let i=0; i<figures.length;i++) {
     figures[i].draw()
 }
 
-// let turn =  {figure:null, start_pos: [x, y], end_pos:[end_x, end_y] }
-// let history = []
+const abc = {
+    0: 'a',
+    1: 'b',
+    2: 'c',
+    3: 'd',
+    4: 'e',
+    5: 'f',
+    6: 'g',
+    7: 'h'
+}
+let history = []
 // history.push(turn)
 
-// let header = document.createElement("h1");  
-// header.innerHTML = 'Новый ход'
-// const history_list = document.querySelector('.history-list')
-// history_list.appendChild(header)
+const history_list = document.querySelector('.history-list')
 
 let chooseFigure = null
 let last_cell = null
@@ -354,9 +372,9 @@ let isWhiteTurn = true
 
 function turn (c, row) {
     board.remove_figure(chooseFigure)
-        board.set_figure(chooseFigure, c, 7-row )
+        
         isWhiteTurn = !isWhiteTurn
-        chooseFigure = null
+        
         if (last_cell != null) { 
             last_cell.style.backgroundColor = ''
             last_cell = null
@@ -368,6 +386,12 @@ function turn (c, row) {
             turn_container.style.color = "#737272"
             turn_container.innerHTML = "Ход чёрных"
         }
+        let new_history_element = document.createElement("li")
+        new_history_element.innerHTML = `${chooseFigure.label}${ board.board[c][7-row]==null ? ' ' : ':'}${abc[chooseFigure.x]}${chooseFigure.y+1}-${abc[c]}${8-row}`
+        history_list.appendChild(new_history_element)
+        history.push({figure:chooseFigure, start_pos: [chooseFigure.x, chooseFigure.y], end_pos:[c, 7-row] })
+        board.set_figure(chooseFigure, c, 7-row )
+        chooseFigure = null
 }
 
 for (let row = 0; row<rows.length; row++) {
