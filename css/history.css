@@ -7,7 +7,7 @@ body {
     flex-direction: column;
     flex-wrap: wrap;
     min-height: 30rem;
-    max-width: 18rem;
+    width: 18rem;
     background-color: #595959;
     border-radius: 5px;
     margin-left: 50px;
@@ -15,6 +15,7 @@ body {
 
 .history-list li {
     list-style-position: inside;
+    text-align: center;
     color: white;
     font-size: 1rem;
     margin: 0.15rem;
@@ -25,10 +26,8 @@ body {
 }
 
 .history-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto auto;
     padding: 1rem;
     margin: 0;
 }
