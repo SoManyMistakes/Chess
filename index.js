@@ -199,7 +199,7 @@ class Rook extends Figure {
         return false
     }
 }
-
+let isCastling = false
 class King extends Figure {
     constructor(x, y, isWhite) {
         super(x, y, isWhite, 'king')
@@ -224,6 +224,13 @@ class King extends Figure {
                                 let my_rook = board.board[7][this.y]
                                 board.remove_figure(my_rook)
                                 board.set_figure(my_rook, 5, this.y)
+                                isCastling = true
+                                
+                                let new_history_element = document.createElement("li")
+                            new_history_element.innerHTML = `O-O`
+                            isProhod = false
+                            history_list.appendChild(new_history_element)
+                            history.push({figure:chooseFigure, start_pos: [chooseFigure.x, chooseFigure.y], end_pos:[x, y], isCastling:true })
                                 return true
                             }
                         }
@@ -243,6 +250,13 @@ class King extends Figure {
                             let my_rook = board.board[0][this.y]
                             board.remove_figure(my_rook)
                             board.set_figure(my_rook, 3, this.y)
+                            
+                            isCastling = true
+                            let new_history_element = document.createElement("li")
+                            new_history_element.innerHTML = `O-O-O`
+                            isProhod = false
+                            history_list.appendChild(new_history_element)
+                            history.push({figure:chooseFigure, start_pos: [chooseFigure.x, chooseFigure.y], end_pos:[x, y], isCastling:true })
                             return true
                         }
                     }
@@ -446,11 +460,14 @@ function turn (c, row) {
         if (chooseFigure.image.includes('rook')||chooseFigure.image.includes('king')) {
             chooseFigure.isCastling = false
         }
+        if (!isCastling) {
         let new_history_element = document.createElement("li")
         new_history_element.innerHTML = `${chooseFigure.label}${ isProhod==true||board.board[c][7-row]!=null ? ':' : ' '}${abc[chooseFigure.x]}${chooseFigure.y+1}-${abc[c]}${8-row}`
         isProhod = false
         history_list.appendChild(new_history_element)
         history.push({figure:chooseFigure, start_pos: [chooseFigure.x, chooseFigure.y], end_pos:[c, 7-row] })
+        }
+        isCastling = false
         board.set_figure(chooseFigure, c, 7-row )
         chooseFigure = null
 }
