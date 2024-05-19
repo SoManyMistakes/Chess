@@ -439,7 +439,7 @@ const history_list = document.querySelector('.history-list')
 let chooseFigure = null
 let last_cell = null
 let isWhiteTurn = true
-
+let not_capturing_count = 0
 
 function turn (c, row) {
     board.remove_figure(chooseFigure)
@@ -460,6 +460,17 @@ function turn (c, row) {
         if (chooseFigure.image.includes('rook')||chooseFigure.image.includes('king')) {
             chooseFigure.isCastling = false
         }
+        if (board.board[c][7-row]!=null) {
+            not_capturing_count = 0
+        } else {
+            not_capturing_count += 1
+        }
+
+        // 50 moves
+        if (not_capturing_count == 50) {
+            console.log("Draw")
+        }
+
         if (!isCastling) {
         let new_history_element = document.createElement("li")
         new_history_element.innerHTML = `${chooseFigure.label}${ isProhod==true||board.board[c][7-row]!=null ? ':' : ' '}${abc[chooseFigure.x]}${chooseFigure.y+1}-${abc[c]}${8-row}`
