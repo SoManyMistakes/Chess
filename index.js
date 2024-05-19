@@ -81,7 +81,7 @@ class Figure  {
         image.style.opacity = 1
     }
 }
-
+let isProhod = false
 class Pawn extends Figure {
     constructor (x, y, isWhite) {
         super(x, y, isWhite, 'pawn')
@@ -99,6 +99,7 @@ class Pawn extends Figure {
                     last_turn.figure.x = last_turn.end_pos[0]
                     last_turn.figure.y = last_turn.end_pos[1]
                     board.remove_figure(last_turn.figure)
+                    isProhod = true
                     return true
                 }
 
@@ -136,6 +137,7 @@ class Pawn extends Figure {
                     last_turn.figure.x = last_turn.end_pos[0]
                     last_turn.figure.y = last_turn.end_pos[1]
                     board.remove_figure(last_turn.figure)
+                    isProhod = true
                     return true
                 }
             if (board.board[x][y] != null) {
@@ -396,7 +398,8 @@ function turn (c, row) {
             turn_container.innerHTML = "Ход чёрных"
         }
         let new_history_element = document.createElement("li")
-        new_history_element.innerHTML = `${chooseFigure.label}${ board.board[c][7-row]==null ? ' ' : ':'}${abc[chooseFigure.x]}${chooseFigure.y+1}-${abc[c]}${8-row}`
+        new_history_element.innerHTML = `${chooseFigure.label}${ isProhod==true||board.board[c][7-row]!=null ? ':' : ' '}${abc[chooseFigure.x]}${chooseFigure.y+1}-${abc[c]}${8-row}`
+        isProhod = false
         history_list.appendChild(new_history_element)
         history.push({figure:chooseFigure, start_pos: [chooseFigure.x, chooseFigure.y], end_pos:[c, 7-row] })
         board.set_figure(chooseFigure, c, 7-row )
