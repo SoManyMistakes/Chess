@@ -175,6 +175,7 @@ class Rook extends Figure {
     constructor (x, y, isWhite) {
         super(x, y, isWhite, 'rook')
         this.label = 'Л'
+        this.isCastling = true
     }
     check_turn(x,y,isRecursion=true) {
         if (this.check_pre_turn(x,y,isRecursion) == false) {
@@ -203,8 +204,53 @@ class King extends Figure {
     constructor(x, y, isWhite) {
         super(x, y, isWhite, 'king')
         this.label = 'Кр'
+        this.isCastling = true
     }
     check_turn(x,y,isRecursion=true) {
+        // check Castling for white King
+        if (this.y == y && this.isCastling == true && Math.abs(this.x - x)==2 ) {
+            if ((x - this.x) > 0) {
+                // castling right
+                    if (board.board[7][this.y] != null) {
+                        if (board.board[7][this.y].image.includes('rook') && board.board[7][this.y].isCastling) {
+                            if (board.board[6][this.y] == null && board.board[5][this.y] == null) {
+                                let enemies = board.filter_figures_by_color(!this.isWhite)
+                                for (let i=0; i<enemies.length;i++) {
+                                    if (enemies[i].check_turn(5, this.y, false)==true || enemies[i].check_turn(6, this.y, false)==true) {
+                                        return false
+                                    }
+                                }
+                                console.log('Castling is true')
+                                let my_rook = board.board[7][this.y]
+                                board.remove_figure(my_rook)
+                                board.set_figure(my_rook, 5, this.y)
+                                return true
+                            }
+                        }
+                    }
+            } else {
+                // castling left
+                if (board.board[0][this.y] != null) {
+                    if (board.board[0][this.y].image.includes('rook') && board.board[0][this.y].isCastling) {
+                        if (board.board[3][this.y] == null && board.board[2][this.y] == null && board.board[1][this.y] == null) {
+                            let enemies = board.filter_figures_by_color(!this.isWhite)
+                            for (let i=0; i<enemies.length;i++) {
+                                if (enemies[i].check_turn(3, this.y, false)==true || enemies[i].check_turn(2, this.y, false)==true) {
+                                    return false
+                                }
+                            }
+                            console.log('Castling is true')
+                            let my_rook = board.board[0][this.y]
+                            board.remove_figure(my_rook)
+                            board.set_figure(my_rook, 3, this.y)
+                            return true
+                        }
+                    }
+                }
+            }
+        }
+
+        // other turn
         if (Math.abs(this.x-x) in [1,0] && Math.abs(this.y-y) in [0,1] ) {
             // figure
             if (board.board[x][y] != null) {
@@ -397,6 +443,9 @@ function turn (c, row) {
             turn_container.style.color = "black"
             turn_container.innerHTML = "Ход чёрных"
         }
+        if (chooseFigure.image.includes('rook')||chooseFigure.image.includes('king')) {
+            chooseFigure.isCastling = false
+        }
         let new_history_element = document.createElement("li")
         new_history_element.innerHTML = `${chooseFigure.label}${ isProhod==true||board.board[c][7-row]!=null ? ':' : ' '}${abc[chooseFigure.x]}${chooseFigure.y+1}-${abc[c]}${8-row}`
         isProhod = false
@@ -437,9 +486,7 @@ for (let row = 0; row<rows.length; row++) {
                 if (chooseFigure != null) {
                     
                     if (chooseFigure.check_turn(c, 7-row)) {
-                            turn(c, row)
-                            
-                        
+                            turn(c, row)  
                     }
                 }
             }
