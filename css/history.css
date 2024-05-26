@@ -5,8 +5,8 @@ body {
 .history-container {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    min-height: 30rem;
+    height: 30rem;
+    overflow-y: auto;
     width: 18rem;
     background-color: #595959;
     border-radius: 5px;
