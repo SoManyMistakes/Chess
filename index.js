@@ -95,7 +95,7 @@ class Pawn extends Figure {
         // WHITE
             if (Math.abs(x-this.x)==1 && y-this.y==1) {
                 let last_turn = history[history.length-1]
-                if (last_turn.figure.image.includes('pawn') && Math.abs(last_turn.start_pos[1] -last_turn.end_pos[1]) == 2 && last_turn.figure.x == x ) {
+                if (last_turn.figure.image.includes('pawn') && Math.abs(last_turn.start_pos[1] -last_turn.end_pos[1]) == 2 && last_turn.figure.x == x && this.y == last_turn.end_pos[1]) {
                     last_turn.figure.x = last_turn.end_pos[0]
                     last_turn.figure.y = last_turn.end_pos[1]
                     board.remove_figure(last_turn.figure)
@@ -133,7 +133,7 @@ class Pawn extends Figure {
         // BLACK
         if (Math.abs(x-this.x)==1 && y-this.y==-1) {
             let last_turn = history[history.length-1]
-                if (last_turn.figure.image.includes('pawn') && Math.abs(last_turn.start_pos[1] -last_turn.end_pos[1]) == 2 && last_turn.figure.x == x ) {
+                if (last_turn.figure.image.includes('pawn') && Math.abs(last_turn.start_pos[1] -last_turn.end_pos[1]) == 2 && last_turn.figure.x == x && this.y == last_turn.end_pos[1]) {
                     last_turn.figure.x = last_turn.end_pos[0]
                     last_turn.figure.y = last_turn.end_pos[1]
                     board.remove_figure(last_turn.figure)
