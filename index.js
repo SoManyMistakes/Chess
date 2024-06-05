@@ -433,6 +433,32 @@ const abc = {
 }
 let history = []
 // history.push(turn)
+let temp_obj = {x:0, y:0, isWhite:false}
+let popupWindow = document.querySelector('.pawn')
+let popupImages = popupWindow.querySelectorAll('img')
+for (let i=0; i<popupImages.length; i++) {
+    popupImages[i].addEventListener('click', function () {
+        
+            let new_set_figure = null
+            switch(i) {
+                case 0:  // if (x === 'value1')
+                    new_set_figure = new Bishop(temp_obj.x, temp_obj.y, temp_obj.isWhite)
+                    break
+                case 1:  // if (x === 'value2')
+                    new_set_figure = new Queen(temp_obj.x, temp_obj.y, temp_obj.isWhite)
+                    break
+                case 2:  // if (x === 'value2')
+                    new_set_figure = new Knight(temp_obj.x, temp_obj.y, temp_obj.isWhite)
+                    break
+                case 3:  // if (x === 'value2')
+                    new_set_figure = new Rook(temp_obj.x, temp_obj.y, temp_obj.isWhite)
+                    break
+              }
+              board.set_figure(new_set_figure, temp_obj.x, temp_obj.y,)
+              popupWindow.style.display = 'none'
+
+    })
+}
 
 const history_list = document.querySelector('.history-list')
 
@@ -481,9 +507,9 @@ function turn (c, row) {
         isCastling = false
         board.set_figure(chooseFigure, c, 7-row )
         if (chooseFigure.image.includes('pawn') && 7-row == (chooseFigure.isWhite? 7:0)){
-            let popupWindow = document.querySelector('.pawn')
+            
             popupWindow.style.display = 'flex'
-            let popupImages = popupWindow.querySelectorAll('img')
+            
             if (chooseFigure.isWhite) {
                 popupImages[0].src="src/white_bishop.png"
                 popupImages[1].src="src/white_queen.png"
@@ -495,30 +521,10 @@ function turn (c, row) {
                 popupImages[2].src="src/black_knight.png"
                 popupImages[3].src="src/black_rook.png"
             }
-            let color_set_figure = chooseFigure.isWhite
-            for (let i=0; i<popupImages.length; i++) {
-                popupImages[i].addEventListener('click', function () {
-                    
-                        let new_set_figure = null
-                        switch(i) {
-                            case 0:  // if (x === 'value1')
-                                new_set_figure = new Bishop(c, 7-row, color_set_figure)
-                                break
-                            case 1:  // if (x === 'value2')
-                                new_set_figure = new Queen(c, 7-row, color_set_figure)
-                                break
-                            case 2:  // if (x === 'value2')
-                                new_set_figure = new Knight(c, 7-row, color_set_figure)
-                                break
-                            case 3:  // if (x === 'value2')
-                                new_set_figure = new Rook(c, 7-row, color_set_figure)
-                                break
-                          }
-                          board.set_figure(new_set_figure, c, 7-row)
-                          popupWindow.style.display = 'none'
-
-                })
-            }
+            temp_obj.x = chooseFigure.x
+            temp_obj.y = chooseFigure.y
+            temp_obj.isWhite = chooseFigure.isWhite
+            
 
 
         }
